@@ -1,0 +1,6 @@
+# build folder
+target
+
+# Pesky mac files
+*.DS_Store
+
