@@ -1,5 +1,9 @@
 # build folder
 target
+build
+
+# Intellij folder
+.idea
 
 # Pesky mac files
 *.DS_Store
