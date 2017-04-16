@@ -1,12 +1,19 @@
 package com.stewart.grid.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.Arrays;
 
 /**
  * A single cell in a Sudoku grid
  */
+@ToString
+@EqualsAndHashCode
 public class Cell {
 
+    @Getter
     private int value;
     private int[] possibility; // if tentative[1] == 1, then value can be 1.
 
@@ -24,6 +31,7 @@ public class Cell {
      * @param value The value of the cell
      */
     public Cell(final int value) {
+        this();
         setValue(value);
     }
 
@@ -32,14 +40,10 @@ public class Cell {
             throw new IllegalArgumentException(String.format("Invalid Cell value '%d'. Value must be an integer between 1-9.", value));
     }
 
-    public int getValue() {
-        return value;
-    }
-
     public void setValue(final int value) {
         validate(value);
         this.value = value;
-        this.possibility = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // offset by 1
+        Arrays.fill(this.possibility, 0); // offset by 1
         this.possibility[value] = 1;
     }
 
