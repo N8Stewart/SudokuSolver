@@ -1,19 +1,25 @@
 package com.stewart.grid.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * A coordinate used to identify the location of an individual cell
  */
 @ToString
 @EqualsAndHashCode
-@RequiredArgsConstructor
 public class Coordinate {
     @Getter
     private final int row;
     @Getter
     private final int column;
+
+    public Coordinate(final int column, final int row) {
+        this.row = row;
+        this.column = column;
+    }
+
+    public static Coordinate of(final int row, final int column) {
+        return new Coordinate(row, column);
+    }
+
 }
