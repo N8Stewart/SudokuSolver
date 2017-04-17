@@ -2,16 +2,16 @@ package com.stewart.grid.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.Arrays;
 
 /**
  * A single cell in a Sudoku grid
  */
-@ToString
 @EqualsAndHashCode
 public class Cell {
+
+    private static final String EMPTY = " ";
 
     @Getter
     private int value;
@@ -75,6 +75,14 @@ public class Cell {
                     this.value = i;
 
         return this.value;
+    }
+
+    @Override
+    public String toString() {
+        if (this.value == 0)
+            return EMPTY;
+        else
+            return String.format("%d", this.value);
     }
 
 }

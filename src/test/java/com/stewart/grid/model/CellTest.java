@@ -136,4 +136,18 @@ public class CellTest {
         assertEquals(1, cell.getValue());
     }
 
+    @Test
+    public void testToString() {
+        assertEquals(" ", new Cell().toString());
+        assertEquals("1", new Cell(1).toString());
+        assertEquals("2", new Cell(2).toString());
+        assertEquals("3", new Cell(3).toString());
+        assertEquals("4", new Cell(4).toString());
+        assertEquals("5", new Cell(5).toString());
+        assertEquals("6", new Cell(6).toString());
+        assertEquals("7", new Cell(7).toString());
+        assertEquals("8", new Cell(8).toString());
+        assertEquals("9", new Cell(9).toString());
+    }
+
 }
