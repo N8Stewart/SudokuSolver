@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import static org.junit.Assert.assertEquals;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class GridTest {
@@ -136,6 +138,7 @@ public class GridTest {
                 new Cell(7)
         ), grid.getRow(8));
     }
+
     @Test
     public void testGetColumns() {
         final Grid grid = TestHelpers.getFullGrid();
@@ -248,6 +251,271 @@ public class GridTest {
         ), grid.getColumn(8));
     }
 
+    @Test
+    public void testGetSubGrids() {
+        final Grid grid = TestHelpers.getFullGrid();
+        assertEquals(ImmutableList.of(
+                new Cell(8),
+                new Cell(2),
+                new Cell(7),
+                new Cell(9),
+                new Cell(6),
+                new Cell(5),
+                new Cell(3),
+                new Cell(4),
+                new Cell(1)
+        ), grid.getSubGrid(Coordinate.of(0, 0)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(1),
+                new Cell(5),
+                new Cell(4),
+                new Cell(3),
+                new Cell(2),
+                new Cell(7),
+                new Cell(6),
+                new Cell(8),
+                new Cell(9)
+        ), grid.getSubGrid(Coordinate.of(0, 3)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(3),
+                new Cell(9),
+                new Cell(6),
+                new Cell(1),
+                new Cell(4),
+                new Cell(8),
+                new Cell(7),
+                new Cell(5),
+                new Cell(2)
+        ), grid.getSubGrid(Coordinate.of(0, 6)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(5),
+                new Cell(9),
+                new Cell(3),
+                new Cell(4),
+                new Cell(7),
+                new Cell(2),
+                new Cell(6),
+                new Cell(1),
+                new Cell(8)
+        ), grid.getSubGrid(Coordinate.of(3, 0)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(4),
+                new Cell(6),
+                new Cell(8),
+                new Cell(5),
+                new Cell(1),
+                new Cell(3),
+                new Cell(9),
+                new Cell(7),
+                new Cell(2)
+        ), grid.getSubGrid(Coordinate.of(3, 3)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(2),
+                new Cell(7),
+                new Cell(1),
+                new Cell(6),
+                new Cell(8),
+                new Cell(9),
+                new Cell(4),
+                new Cell(3),
+                new Cell(5)
+        ), grid.getSubGrid(Coordinate.of(3, 6)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(7),
+                new Cell(8),
+                new Cell(6),
+                new Cell(1),
+                new Cell(5),
+                new Cell(4),
+                new Cell(2),
+                new Cell(3),
+                new Cell(9)
+        ), grid.getSubGrid(Coordinate.of(6, 0)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(2),
+                new Cell(3),
+                new Cell(5),
+                new Cell(7),
+                new Cell(9),
+                new Cell(6),
+                new Cell(8),
+                new Cell(4),
+                new Cell(1)
+        ), grid.getSubGrid(Coordinate.of(6, 3)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(9),
+                new Cell(1),
+                new Cell(4),
+                new Cell(8),
+                new Cell(2),
+                new Cell(3),
+                new Cell(5),
+                new Cell(6),
+                new Cell(7)
+        ), grid.getSubGrid(Coordinate.of(6, 6)));
+    }
+
+    @Test
+    public void getSubGridsCorrectCoordinates() {
+        final Grid grid = TestHelpers.getFullGrid();
+        assertEquals(ImmutableList.of(
+                new Cell(8),
+                new Cell(2),
+                new Cell(7),
+                new Cell(9),
+                new Cell(6),
+                new Cell(5),
+                new Cell(3),
+                new Cell(4),
+                new Cell(1)
+        ), grid.getSubGrid(Coordinate.of(0, 0)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(1),
+                new Cell(5),
+                new Cell(4),
+                new Cell(3),
+                new Cell(2),
+                new Cell(7),
+                new Cell(6),
+                new Cell(8),
+                new Cell(9)
+        ), grid.getSubGrid(Coordinate.of(1, 4)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(3),
+                new Cell(9),
+                new Cell(6),
+                new Cell(1),
+                new Cell(4),
+                new Cell(8),
+                new Cell(7),
+                new Cell(5),
+                new Cell(2)
+        ), grid.getSubGrid(Coordinate.of(2, 6)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(5),
+                new Cell(9),
+                new Cell(3),
+                new Cell(4),
+                new Cell(7),
+                new Cell(2),
+                new Cell(6),
+                new Cell(1),
+                new Cell(8)
+        ), grid.getSubGrid(Coordinate.of(4, 0)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(4),
+                new Cell(6),
+                new Cell(8),
+                new Cell(5),
+                new Cell(1),
+                new Cell(3),
+                new Cell(9),
+                new Cell(7),
+                new Cell(2)
+        ), grid.getSubGrid(Coordinate.of(4, 4)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(2),
+                new Cell(7),
+                new Cell(1),
+                new Cell(6),
+                new Cell(8),
+                new Cell(9),
+                new Cell(4),
+                new Cell(3),
+                new Cell(5)
+        ), grid.getSubGrid(Coordinate.of(4, 8)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(7),
+                new Cell(8),
+                new Cell(6),
+                new Cell(1),
+                new Cell(5),
+                new Cell(4),
+                new Cell(2),
+                new Cell(3),
+                new Cell(9)
+        ), grid.getSubGrid(Coordinate.of(8, 0)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(2),
+                new Cell(3),
+                new Cell(5),
+                new Cell(7),
+                new Cell(9),
+                new Cell(6),
+                new Cell(8),
+                new Cell(4),
+                new Cell(1)
+        ), grid.getSubGrid(Coordinate.of(8, 5)));
+
+        assertEquals(ImmutableList.of(
+                new Cell(9),
+                new Cell(1),
+                new Cell(4),
+                new Cell(8),
+                new Cell(2),
+                new Cell(3),
+                new Cell(5),
+                new Cell(6),
+                new Cell(7)
+        ), grid.getSubGrid(Coordinate.of(7, 7)));
+    }
+
+    @Test
+    public void getColumnReturnsANewListOfOldReferences() {
+        final Grid grid = TestHelpers.getFullGrid();
+
+        final List<Cell> column0List1 = grid.getColumn(0);
+        final List<Cell> column0List2 = grid.getColumn(0);
+
+        // List references should be different
+        assertFalse(column0List1 == column0List2);
+
+        // Cell references should be identical
+        column0List1.forEach(cell -> assertTrue(column0List2.contains(cell)));
+    }
+
+    @Test
+    public void getRowReturnsANewListOfOldReferences() {
+        final Grid grid = TestHelpers.getFullGrid();
+
+        final List<Cell> row0List1 = grid.getRow(0);
+        final List<Cell> row0List2 = grid.getRow(0);
+
+        // List references should be different
+        assertFalse(row0List1 == row0List2);
+
+        // Cell references should be identical
+        row0List1.forEach(cell -> assertTrue(row0List2.contains(cell)));
+    }
+
+    @Test
+    public void getSubGridReturnsANewListOfOldReferences() {
+        final Grid grid = TestHelpers.getFullGrid();
+
+        final List<Cell> grid0List1 = grid.getSubGrid(Coordinate.of(0,0));
+        final List<Cell> grid0List2 = grid.getSubGrid(Coordinate.of(0,0));
+
+        // List references should be different
+        assertFalse(grid0List1 == grid0List2);
+
+        // Cell references should be identical
+        grid0List1.forEach(cell -> assertTrue(grid0List2.contains(cell)));
+    }
 
     @Test
     public void testToStringOnDefaultGrid() {

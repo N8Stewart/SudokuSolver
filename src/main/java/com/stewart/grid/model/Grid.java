@@ -22,6 +22,9 @@ public class Grid {
     private Map<Coordinate, Cell> cells;
     private Map<Integer, List<Cell>> rows;
     private Map<Integer, List<Cell>> columns;
+    // A map from a coordinate to a list of subgrids (there will be 9 total subgrids)
+    // Computation of this subgrid is high compute intensive, so it should be done once during creation, and be referenced
+    private Map<Coordinate, List<Cell>> subgrids;
 
 
     /**
@@ -32,14 +35,22 @@ public class Grid {
         cells = Maps.newHashMap();
         rows = Maps.newHashMap();
         columns = Maps.newHashMap();
+        subgrids = Maps.newHashMap();
 
         // Initialize the rows/columns
         for (int i = 0; i < this.size; i++) {
             rows.put(i, Lists.newArrayList());
             columns.put(i, Lists.newArrayList());
+            final List<Cell> subgrid = Lists.newArrayList();
+            // The top left coordinate of the current subgrid using Integer divison
+            final Coordinate topLeftCoordinate = Coordinate.of(i / 3 * 3, i % 3 * 3);
+            for (int j = 0; j < this.size; j++) {
+                final Coordinate cellCoordinate = Coordinate.of(topLeftCoordinate.getRow() + (j / 3), topLeftCoordinate.getColumn() + (j % 3));
+                subgrids.put(cellCoordinate, subgrid);
+            }
         }
 
-        // Create cells and add references to cells/rows/columns
+        // Create cells and add references to cells/rows/columns/subgrids
         generateEmptyGrid();
     }
 
@@ -102,6 +113,17 @@ public class Grid {
         return colCells;
     }
 
+    /**
+     * Get a copy of {@code Cell} references pertaining to the subgrid of the provided {@code Coordinate}
+     *
+     * @param coordinate the coordinates of the cell to which neighbor {@code Cell}s should be gathered
+     * @return a {@code List} of {@code Cell}s
+     */
+    public List<Cell> getSubGrid(final Coordinate coordinate) {
+        final List<Cell> subGrid = Lists.newArrayList();
+        subGrid.addAll(subgrids.get(coordinate));
+        return subGrid;
+    }
 
     private void generateEmptyGrid() {
         for (int row = 0; row < this.size; row++) {
@@ -110,6 +132,7 @@ public class Grid {
                 cells.put(Coordinate.of(row, col), cell);
                 rows.get(row).add(cell);
                 columns.get(col).add(cell);
+                subgrids.get(Coordinate.of(row, col)).add(cell);
             }
         }
     }
