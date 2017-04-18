@@ -1,11 +1,10 @@
 package com.stewart.grid.model;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,14 +29,14 @@ public class Grid {
      */
     public Grid() {
         this.size = DEFAULT_SIZE;
-        cells = new HashMap<>();
-        rows = new HashMap<>();
-        columns = new HashMap<>();
+        cells = Maps.newHashMap();
+        rows = Maps.newHashMap();
+        columns = Maps.newHashMap();
 
         // Initialize the rows/columns
         for (int i = 0; i < this.size; i++) {
-            rows.put(i, new ArrayList<>());
-            columns.put(i, new ArrayList<>());
+            rows.put(i, Lists.newArrayList());
+            columns.put(i, Lists.newArrayList());
         }
 
         // Create cells and add references to cells/rows/columns
@@ -47,23 +46,23 @@ public class Grid {
     @Override
     public String toString() {
         final StringBuilder buffer = new StringBuilder();
-        for (int col = 0; col < this.size; col++) {
+        for (int row = 0; row < this.size; row++) {
             buffer.append(String.format("%s  %s  %s  %c  %s  %s  %s  %c  %s  %s  %s%n---------%c-----------%c---------",
-                    cells.get(Coordinate.of(0, col)),
-                    cells.get(Coordinate.of(1, col)),
-                    cells.get(Coordinate.of(2, col)),
+                    cells.get(Coordinate.of(row, 0)),
+                    cells.get(Coordinate.of(row, 1)),
+                    cells.get(Coordinate.of(row, 2)),
                     COLUMN_SEPARATOR,
-                    cells.get(Coordinate.of(3, col)),
-                    cells.get(Coordinate.of(4, col)),
-                    cells.get(Coordinate.of(5, col)),
+                    cells.get(Coordinate.of(row, 3)),
+                    cells.get(Coordinate.of(row, 4)),
+                    cells.get(Coordinate.of(row, 5)),
                     COLUMN_SEPARATOR,
-                    cells.get(Coordinate.of(6, col)),
-                    cells.get(Coordinate.of(7, col)),
-                    cells.get(Coordinate.of(8, col)),
+                    cells.get(Coordinate.of(row, 6)),
+                    cells.get(Coordinate.of(row, 7)),
+                    cells.get(Coordinate.of(row, 8)),
                     COLUMN_SEPARATOR,
                     COLUMN_SEPARATOR
             ));
-            if (col != this.size - 1)
+            if (row != this.size - 1)
                 buffer.append(String.format("%n"));
         }
         return buffer.toString();
